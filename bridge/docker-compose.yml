@@ -9,4 +9,4 @@ services:
       - 51820:51820
       - 51820:51820/udp
     volumes:
-      - ./config:/etc/v2ray
+      - ./v2config.json:/etc/v2ray/config.json
