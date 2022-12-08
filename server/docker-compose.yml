@@ -1,0 +1,54 @@
+version: "3"
+services:
+  wireguard:
+    image: linuxserver/wireguard
+    container_name: wireguard
+    restart: always
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/London
+      - PEERS=1
+      - PEERDNS=auto
+      - INTERNAL_SUBNET=10.13.13.0
+      - ALLOWEDIPS=0.0.0.0/0
+      - LOG_CONFS=true
+    cap_add:
+      - SYS_MODULE
+      - NET_ADMIN
+    expose:
+      - 51820
+      - 51820/udp
+    volumes:
+      - ./wg0.conf:/config/wg0.conf
+      - /lib/modules:/lib/modules
+    sysctls:
+      - net.ipv4.conf.all.src_valid_mark=1
+    networks:
+      v2:
+        ipv4_address: 10.13.13.2
+
+  v2ray:
+    image: v2ray/official
+    hostname: v2ray
+    container_name: v2ray
+    depends_on:
+      - wireguard
+    restart: always
+    command: ["v2ray","-config=/etc/v2ray/config.json"]
+    expose:
+      - 51820
+      - 51820/udp
+    ports:
+      - 1433:1433
+      - 1433:1433/udp
+    volumes:
+      - ./v2config.json:/etc/v2ray/config.json
+    networks:
+      v2:
+        ipv4_address: 10.13.13.3
+
+networks:
+  v2:
+    external:
+      name: v2

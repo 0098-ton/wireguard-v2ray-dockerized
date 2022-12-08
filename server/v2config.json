@@ -1,0 +1,101 @@
+{
+    "log": {
+        "loglevel": "info"
+    },
+    "inbound": {
+        "port": 1433,
+        "listen": "0.0.0.0",
+        "protocol": "vmess",
+        "settings": {
+            "auth": null,
+            "udp": false,
+            "ip": null,
+            "clients": [
+                {
+                    "id": "UUID_V_4",
+                    "alterId": 233,
+                    "security": null
+                }
+            ]
+        },
+        "streamSettings": {
+            "network": "tcp",
+            "security": "",
+            "tcpSettings": {
+                "connectionReuse": true,
+                "header": {
+                    "type": "http",
+                    "request": {
+                        "version": "1.1",
+                        "method": "GET",
+                        "path": [
+                            "/"
+                        ],
+                        "headers": {
+                            "Host": [
+                                "www.bing.com"
+                            ],
+                            "User-Agent": [
+                                "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.75 Safari/537.36",
+                                "Mozilla/5.0 (iPhone; CPU iPhone OS 10_0_2 like Mac OS X) AppleWebKit/601.1 (KHTML, like Gecko) CriOS/53.0.2785.109 Mobile/14A456 Safari/601.1.46"
+                            ],
+                            "Accept-Encoding": [
+                                "gzip, deflate"
+                            ],
+                            "Connection": [
+                                "keep-alive"
+                            ],
+                            "Pragma": "no-cache"
+                        }
+                    },
+                    "response": {
+                        "version": "1.1",
+                        "status": "200",
+                        "reason": "OK",
+                        "headers": {
+                            "Content-Type": [
+                                "application/octet-stream",
+                                "video/mpeg"
+                            ],
+                            "Transfer-Encoding": [
+                                "chunked"
+                            ],
+                            "Connection": [
+                                "keep-alive"
+                            ],
+                            "Pragma": "no-cache"
+                        }
+                    }
+                }
+            },
+            "kcpSettings": null,
+            "wsSettings": null
+        }
+    },
+    "outbound": {
+        "tag": null,
+        "protocol": "freedom",
+        "settings": null,
+        "streamSettings": null,
+        "mux": null
+    },
+    "inboundDetour": null,
+    "dns": null,
+    "routing": {
+        "strategy": "rules",
+        "settings": {
+            "domainStrategy": null,
+            "rules": [
+                {
+                    "type": "field",
+                    "port": null,
+                    "outboundTag": "blocked",
+                    "ip": [
+                        "192.168.0.0/16"
+                    ],
+                    "domain": null
+                }
+            ]
+        }
+    }
+}
